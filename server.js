@@ -47,15 +47,18 @@ app.get("/scrape", function (req, res) {
       result.link = "https://tampabay.com" + $(this).children("a").attr("href");
       result.topic = $(this).find(".sectionbullet").text();
       result.thumb = $(this).children("img").attr("src");
+      
+      console.log("**************************************************************" + result.thumb)
+
       // Create a new Article using the `result` object built from scraping
       db.Article.create(result)
         .then(function (dbArticle) {
           // View the added result in the console
-          console.log(dbArticle);
+          // console.log(dbArticle);
         })
         .catch(function (err) {
           // If an error occurred, log it
-          console.log(err);
+          // console.log(err);
         });
     });
 
@@ -119,9 +122,12 @@ app.post("/articles/:id", function (req, res) {
 });
 
 // //Route for clearing scrapes
-// app.delete("/clear", function (req, res) {
-//   mongoose.db.collection("articles").remove({});
-// });
+app.delete("/clear", function (req, res) {
+  // mongoose.db.collection("articles").remove({});
+
+  // we imported db from line 11 an access the Article Model we are exporting on line 4 inside models/index.js
+    db.Article.remove({}).then(r => res.end());
+});
 
 // Start the server
 app.listen(PORT, function () {

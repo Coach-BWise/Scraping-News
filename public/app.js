@@ -85,16 +85,17 @@ $(document).on("click", "#savenote", function () {
   $("#bodyinput").val("");
 });
 
-// $(document).ready(function () {
-//   console.log("cleared!");
+$(document).ready(function () {
+  
 
-//   $.ajax({
-//     method: "DELETE",
-//     url: "/clear",
-//   })
-//     // With that done
-//     .then(function () {
-//       // Empty the articles section
-//       $("#articles").empty();
-//     });
-// });
+  $.ajax({
+    method: "DELETE",
+    url: "/clear",
+  })
+    // With that done
+    .then(function () {
+      console.log("cleared!");
+      // Empty the articles section
+      $("#articles").empty();
+    });
+});

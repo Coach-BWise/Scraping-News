@@ -15,7 +15,7 @@ $.getJSON("/articles", function (data) {
         "<br />" +
         data[i].topic +
         "</p>" +
-        `<img src="${data[i].thumb}" />`
+        data[i].time
     );
   }
 });
@@ -83,19 +83,4 @@ $(document).on("click", "#savenote", function () {
   // Also, remove the values entered in the input and text area for note entry
   $("#titleinput").val("");
   $("#bodyinput").val("");
-});
-
-$(document).ready(function () {
-  
-
-  $.ajax({
-    method: "DELETE",
-    url: "/clear",
-  })
-    // With that done
-    .then(function () {
-      console.log("cleared!");
-      // Empty the articles section
-      $("#articles").empty();
-    });
 });

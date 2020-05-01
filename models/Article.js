@@ -19,7 +19,7 @@ var ArticleSchema = new Schema({
   topic: {
     type: String,
   },
-  thumb: {
+  time: {
     type: String,
   },
   // `comment` is an object that stores a Comment id

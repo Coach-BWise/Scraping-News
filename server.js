@@ -28,6 +28,7 @@ var MONGODB_URI =
   process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 
 mongoose.connect(MONGODB_URI);
+
 // Routes
 
 // A GET route for scraping the echoJS website
@@ -38,17 +39,18 @@ app.get("/scrape", function (req, res) {
     var $ = cheerio.load(response.data);
 
     // Now, we grab every h2 within an article tag, and do the following:
-    $(".story-item div").each(function (i, element) {
+    $(".feed-item .story-item").each(function (i, element) {
       // Save an empty result object
       var result = {};
 
       // Add the text and href of every link, and save them as properties of the result object
-      result.title = $(this).children("a").text();
-      result.link = "https://tampabay.com" + $(this).children("a").attr("href");
+      result.title = $(this).find("a").text();
+      result.link = "https://tampabay.com" + $(this).find("a").attr("href");
       result.topic = $(this).find(".sectionbullet").text();
-      result.thumb = $(this).children("img").attr("src");
-      
-      console.log("**************************************************************" + result.thumb)
+      result.time = $(this).find(".timestamp").text();
+
+      console.log("--------------------------------------------");
+      console.log(result);
 
       // Create a new Article using the `result` object built from scraping
       db.Article.create(result)
@@ -122,11 +124,9 @@ app.post("/articles/:id", function (req, res) {
 });
 
 // //Route for clearing scrapes
-app.delete("/clear", function (req, res) {
-  // mongoose.db.collection("articles").remove({});
-
+app.get("/clear", function (req, res) {
   // we imported db from line 11 an access the Article Model we are exporting on line 4 inside models/index.js
-    db.Article.remove({}).then(r => res.end());
+  db.Article.remove({}).then((r) => res.send("cleared database"));
 });
 
 // Start the server

@@ -35,14 +35,25 @@ a {
   font-size: xx-large;
   font-family: "Tangerine";
 }
+.save {
+  margin-bottom: 10px;
+}
+
+.delete {
+  margin-bottom: 10px;
+}
+.delete i {
+  color: rgb(212, 28, 8);
+}
+
 .fa-floppy-o {
   position: relative;
   display: inline-block;
-  color: #fff;
+  color: rgb(0, 102, 204);
 }
 .fa-floppy-o .tooltiptext {
   visibility: hidden;
-  width: 120px;
+  width: 150px;
   background-color: black;
   color: #fff;
   text-align: center;
@@ -52,7 +63,7 @@ a {
   z-index: 1;
   bottom: 150%;
   left: 50%;
-  margin-left: -60px;
+  margin-left: -75px;
 }
 
 .fa-floppy-o .tooltiptext::after {

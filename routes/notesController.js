@@ -25,7 +25,7 @@ module.exports = {
   delete: function (data, cb) {
     Comment.remove(
       {
-        _Id: data._id,
+        _id: data._id,
       },
       cb
     );

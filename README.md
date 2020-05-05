@@ -1,4 +1,4 @@
-# Scaping-News
+# Scraping-Tampa-News
 
 This Project scrapes the Tampa Bay Times webpage for current events and displays them for the user. 
 

@@ -13,9 +13,9 @@ module.exports = function (router) {
   });
   router.get("/scrape", function (req, res) {
     scrape(function (data, cb) {
-      data.forEach(function (element) {
-        db.Article.create(element);
-      });
+      db.Article.insertMany(data).then(res.json(data));
+
+      //data.forEach(function (element) {
     });
   });
   // Route for getting all Articles from the db
@@ -39,21 +39,22 @@ module.exports = function (router) {
   router.delete("/articles:id", function (req, res) {
     var query = {};
     query._id = req.params.id;
-    db.Article.remove(query, function (err, data) {
+    db.Article.deleteOne(query, function (err, data) {
       res.json(data);
     });
   });
 
   router.patch("/articles", function (req, res) {
-    db.Article.update(
+    db.Article.updateOne(
       { _id: req.body._id },
       {
         $set: req.body,
       },
-      {}
-    ).then(function (err, data) {
-      res.json(data);
-    });
+      {},
+      function (err, data) {
+        res.json(data);
+      }
+    );
   });
 
   router.get("/comments:article_id?", function (req, res) {

@@ -85,18 +85,20 @@ $(document).ready(function () {
       method: "PATCH",
       url: "/articles",
       data: articleToSave,
-    }).then(function () {
+    }).then(function (data) {
       initPage();
     });
   }
 
   function handleArticleScrape() {
     $.get("/scrape", function (data) {
-      initPage();
+      console.log(data);
+      $("#articles").empty();
+      renderArticles(data);
 
-      bootbox.alert(
-        "<h3 class='text-center m-top-80'>" + data.message + "</h3>"
-      );
+      // bootbox.alert(
+      //   "<h3 class='text-center m-top-80'>" + data.message + "</h3>"
+      // );
     });
   }
 });

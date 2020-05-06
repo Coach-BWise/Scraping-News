@@ -90,7 +90,9 @@ $(document).ready(function () {
       method: "DELETE",
       url: "/articles" + articleToDelete._id,
     }).then(function (data) {
+      //this data obj {n:1, ok:1, deletedCount:1} from router.delete
       if (data.ok) {
+        console.log(data);
         initPage();
       }
     });

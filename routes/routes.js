@@ -1,21 +1,17 @@
-var axios = require("axios");
-var cheerio = require("cheerio");
 var db = require("../models");
 var commentController = require("./notesController");
 var scrape = require("../scraper");
 
 module.exports = function (router) {
   router.get("/", function (req, res) {
-    res.render("index");
+    res.render("index", { title: "Current Events" });
   });
   router.get("/saved", function (req, res) {
-    res.render("saved");
+    res.render("saved", { title: "Saved Articles" });
   });
   router.get("/scrape", function (req, res) {
-    scrape(function (data, cb) {
+    scrape(function (data) {
       db.Article.insertMany(data).then(res.json(data));
-
-      //data.forEach(function (element) {
     });
   });
   // Route for getting all Articles from the db

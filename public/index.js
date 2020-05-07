@@ -21,7 +21,7 @@ $(document).ready(function () {
   function renderArticles(data) {
     var artPanels = [];
     for (var i = 0; i < data.length; i++) {
-      // Display the apropos information on the page
+      // Display the article information on the page
       artPanels.push(createPanel(data[i]));
     }
     $("#articles").append(artPanels);
@@ -92,13 +92,9 @@ $(document).ready(function () {
 
   function handleArticleScrape() {
     $.get("/scrape", function (data) {
-      console.log(data);
-      $("#articles").empty();
-      renderArticles(data);
-
-      // bootbox.alert(
-      //   "<h3 class='text-center m-top-80'>" + data.message + "</h3>"
-      // );
+      initPage();
+      //I cannot get modals to work
+      // bootbox.alert("Scrape Complete");
     });
   }
 });

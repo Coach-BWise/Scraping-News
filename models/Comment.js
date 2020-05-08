@@ -10,7 +10,6 @@ var CommentSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Article",
   },
-  date: String,
   commentText: String,
 });
 

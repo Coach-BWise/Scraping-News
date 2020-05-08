@@ -31,7 +31,7 @@ a {
   margin-bottom: 0;
 }
 
-.navbar-header a {
+.navbar-brand {
   font-size: xx-large;
   font-family: "Tangerine";
 }
@@ -140,10 +140,14 @@ a {
   background-color: grey;
 }
 .panel.panel-default .panel-heading h3 {
+  margin-bottom: 0;
   color: black;
+  padding-left: 0.5rem;
 }
 .panel.panel-default .panel-body {
   background-color: rgb(46, 45, 45);
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  margin-bottom: 1rem;
 }
 .navbar-inverse .navbar-nav > li > a.scrape-new {
   background: grey;
@@ -176,6 +180,13 @@ textarea {
   position: relative;
   bottom: 10px;
 }
+
+.panel.panel-default .panel-body .btn-info {
+  color: white;
+  position: relative;
+  bottom: 10px;
+}
+
 @-webkit-keyframes h1 {
   from {
     text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073,
@@ -188,4 +199,14 @@ textarea {
   }
 }
 @media screen and (max-width: 800px) {
+  .panel.panel-default .panel-heading h3 {
+    text-align: center;
+    font-size: large;
+  }
+  .panel.panel-default .panel-body a {
+    font-size: initial;
+  }
+  .panel.panel-default .panel-body p {
+    font-size: initial;
+  }
 }

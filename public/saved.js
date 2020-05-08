@@ -1,6 +1,4 @@
 $(document).ready(function () {
-  var articleContainer = $("#articles");
-
   $(document).on("click", ".btn.delete", handleArticleDelete);
   $(document).on("click", ".btn.notes", handleArticleNotes);
   $(document).on("click", ".btn.save", handleNoteSave);
@@ -9,7 +7,7 @@ $(document).ready(function () {
   initPage();
 
   function initPage() {
-    articleContainer.empty();
+    $("#articles").empty();
 
     $.getJSON("/articles?saved=true", function (data) {
       // For each one
@@ -25,7 +23,7 @@ $(document).ready(function () {
   function renderArticles(data) {
     var artPanels = [];
     for (var i = 0; i < data.length; i++) {
-      // Display the apropos information on the page
+      // Display the articles information on the page
       artPanels.push(createPanel(data[i]));
     }
     $("#articles").append(artPanels);
@@ -99,7 +97,7 @@ $(document).ready(function () {
   }
 
   function handleArticleNotes() {
-    var currentArticle = $(this).parents(".panel").data();
+    var currentArticle = $(this).parents(".panel").data(); //article id
 
     $.get("/comments" + currentArticle._id).then(function (data) {
       var modalText = [
@@ -108,7 +106,7 @@ $(document).ready(function () {
         currentArticle._id,
         "</h4>",
         "<hr />",
-        "ul class='list-group note-container'>",
+        "<ul class='list-group note-container'>",
         "</ul>",
         "<textarea placeholder='New Note' rows='4' cols='60'></textarea>",
         "<button class='btn btn-success save'>Save Note</button>",
@@ -119,10 +117,12 @@ $(document).ready(function () {
         message: modalText,
         closeButton: true,
       });
+
       var noteData = {
         _id: currentArticle._id,
         notes: data || [],
       };
+
       $(".btn.save").data("article", noteData);
 
       renderNotesList(noteData);
@@ -132,10 +132,12 @@ $(document).ready(function () {
   function renderNotesList(data) {
     var notesToRender = [];
     var currentNote;
+
     if (!data.notes.length) {
       currentNote = [
         "<li class='list-group-item'>",
-        "No notes for this article, yet.</li>",
+        "No notes for this article, yet.",
+        "</li>",
       ].join("");
       notesToRender.push(currentNote);
     } else {
@@ -143,7 +145,7 @@ $(document).ready(function () {
         currentNote = $(
           [
             "<li class='list-group-item note'>",
-            element.noteText,
+            element.commentText,
             "<button class='btn btn-danger note-delete'>x</button>",
             "</li>",
           ].join("")
@@ -163,7 +165,7 @@ $(document).ready(function () {
     if (newNote) {
       noteData = {
         _id: $(this).data("article")._id,
-        noteText: newNote,
+        commentText: newNote,
       };
       $.post("comments", noteData).then(function () {
         bootbox.hideAll();
@@ -173,6 +175,7 @@ $(document).ready(function () {
 
   function handleNoteDelete() {
     var notesToDelete = $(this).data("_id");
+    console.log();
 
     $.ajax({
       url: "comments" + notesToDelete,

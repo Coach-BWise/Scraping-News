@@ -26,6 +26,7 @@ $(document).ready(function () {
     }
     $("#articles").append(artPanels);
   }
+
   function renderEmpty() {
     var emptyAlert = $(
       [
@@ -94,7 +95,7 @@ $(document).ready(function () {
     $.get("/scrape", function (data) {
       initPage();
       //I cannot get modals to work
-      // bootbox.alert("Scrape Complete");
+      bootbox.alert("Scrape Complete");
     });
   }
 });
